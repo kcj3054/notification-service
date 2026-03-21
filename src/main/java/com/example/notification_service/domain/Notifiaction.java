@@ -1,10 +1,10 @@
 package com.example.notification_service.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -16,9 +16,10 @@ import java.time.LocalDateTime;
                 @UniqueConstraint(name = "uq_notification_id", columnNames = "event_id")
         }
 )
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
-@Setter
 public class Notifiaction {
 
     @Id
@@ -40,14 +41,5 @@ public class Notifiaction {
     @Column(name= "create_at")
     private Instant createdAt;
 
-//    생성쪽 가독성
-//    @Builder
-//    public Notifiaction(
-//            String eventId,
-//
-//    ) {
-//        this.eventId = eventId;
-//
-//    }
 
 }
