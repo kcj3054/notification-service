@@ -15,7 +15,7 @@ public class NotificationEventConsumer {
 
     @KafkaListener(
             topics = "${app.kafka.topic}",
-            groupId = "${spring.kafka.consumer.group-ids}"
+            groupId = "${spring.kafka.consumer.group-id}"
     )
     public void consume(NotificationEvent event) {
         notificationCommandService.handle(event);

@@ -6,7 +6,7 @@ spring:
     name: notification-service
   docker:
     compose:
-      enabled: true
+      enabled: false
 
   datasource:
     url: jdbc:mysql://localhost:3306/notification
@@ -25,6 +25,10 @@ spring:
     consumer:
       group-id: notification-consumer-group
       auto-offset-reset: latest
+
+springdoc:
+  swagger-ui:
+    path: /swagger
 
 app:
   kafka:

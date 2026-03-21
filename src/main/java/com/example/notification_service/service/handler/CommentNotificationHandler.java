@@ -6,6 +6,7 @@ import com.example.notification_service.domain.ProcessedEvent;
 import com.example.notification_service.event.NotificationEvent;
 import com.example.notification_service.repository.NotificationRepository;
 import com.example.notification_service.repository.ProcessedEventRepository;
+import com.example.notification_service.service.SseEmitterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ public class CommentNotificationHandler implements NotificationHandler {
 
     private final ProcessedEventRepository processedEventRepository;
     private final NotificationRepository notificationRepository;
+    private final SseEmitterService sseEmitterService;
 
     @Override
     public NotificationType supports() {
@@ -53,5 +55,8 @@ public class CommentNotificationHandler implements NotificationHandler {
                 .sendUserId(event.actorUserId())
                 .createdAt(Instant.now())
                 .build());
+
+        // SSE push
+        sseEmitterService.send(event.receivedUserId(), event);
     }
 }
