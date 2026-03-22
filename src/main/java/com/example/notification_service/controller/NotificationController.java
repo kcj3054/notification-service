@@ -14,12 +14,13 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/notification")
 public class NotificationController {
 
     private final NotificationEventProducer notificationEventProducer;
     private final SseEmitterService sseEmitterService;
 
-    @PostMapping("/api/v1/notification")
+    @PostMapping
     public ResponseEntity<Void> sendNotification(@RequestBody NotificationRequest request) {
         NotificationEvent event = NotificationEvent.builder()
                 .eventId(UUID.randomUUID().toString())
@@ -36,7 +37,7 @@ public class NotificationController {
     }
 
 //    todo: userId를  path로 받는 것이 아니라, 인증정보에서 추출할 예정
-    @GetMapping(value = "/api/v1/notification/subscribe/{userId}", produces =MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "subscribe/{userId}", produces =MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter subscribe(@PathVariable Long userId) {
         return sseEmitterService.subscribe(userId);
     }

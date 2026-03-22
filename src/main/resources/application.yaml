@@ -33,3 +33,4 @@ springdoc:
 app:
   kafka:
     topic: notification-events
+    dql-topic: notification-events-dql
